@@ -2,12 +2,25 @@
   "name": "crypto-price",
   "version": "0.0.1",
   "description": "A flexible and reliable cryptocurrency price feed library supporting multiple data sources.",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
+    "build": "tsc",
     "lint": "biome lint ./src",
     "format": "biome format --write ./src"
   },
-  "keywords": ["crypto", "price", "feed", "library"],
+  "keywords": [
+    "crypto",
+    "price",
+    "feed",
+    "library"
+  ],
   "author": "foxytanuki",
   "license": "ISC",
-  "packageManager": "pnpm@10.7.0"
+  "packageManager": "pnpm@10.7.0",
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "typescript": "^5.8.3"
+  }
 }
