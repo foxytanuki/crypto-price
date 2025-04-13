@@ -1,6 +1,6 @@
 {
   "name": "@foxytanuki/crypto-price",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A flexible and reliable cryptocurrency price feed library supporting multiple data sources.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
