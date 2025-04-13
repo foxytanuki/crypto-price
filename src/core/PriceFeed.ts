@@ -9,7 +9,7 @@ export class PriceFeed {
   private providers: BaseProvider[] = [];
   private activeProvider: BaseProvider | null = null;
 
-  constructor(providers: BaseProvider[]) {
+  private constructor(providers: BaseProvider[]) {
     if (providers.length === 0) {
       throw new Error("At least one provider must be specified");
     }
@@ -17,9 +17,20 @@ export class PriceFeed {
   }
 
   /**
+   * Factory method to create and initialize a PriceFeed instance
+   * @param providers - Array of price providers
+   * @returns Promise<PriceFeed>
+   */
+  static async create(providers: BaseProvider[]): Promise<PriceFeed> {
+    const instance = new PriceFeed(providers);
+    await instance.initializeProviders();
+    return instance;
+  }
+
+  /**
    * Initialize providers and set the first healthy provider as active
    */
-  async initializeProviders(): Promise<void> {
+  private async initializeProviders(): Promise<void> {
     for (const provider of this.providers) {
       try {
         const isHealthy = await provider.healthCheck();
