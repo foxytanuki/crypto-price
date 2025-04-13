@@ -1,0 +1,12 @@
+{
+  "name": "crypto-price",
+  "version": "0.0.1",
+  "description": "A flexible and reliable cryptocurrency price feed library supporting multiple data sources.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["crypto", "price", "feed", "library"],
+  "author": "foxytanuki",
+  "license": "ISC",
+  "packageManager": "pnpm@10.7.0"
+}
