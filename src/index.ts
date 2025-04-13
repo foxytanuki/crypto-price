@@ -1,11 +1,11 @@
 import { PriceFeed } from "./core/PriceFeed";
-import { BaseProvider } from "./providers/base/BaseProvider";
+import { BaseProvider, CoingeckoProvider } from "./providers";
 import type { PriceData, ProviderConfig } from "./types";
 import { ProviderError } from "./core/errors";
 
 // Export main classes
 export { PriceFeed };
-export { BaseProvider };
+export { BaseProvider, CoingeckoProvider };
 
 // Export types
 export type { PriceData, ProviderConfig };

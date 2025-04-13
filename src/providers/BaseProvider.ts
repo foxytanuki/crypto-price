@@ -1,5 +1,5 @@
-import type { PriceData, ProviderConfig } from "../../types";
-import { ProviderError } from "../../core/errors";
+import type { PriceData, ProviderConfig } from "../types";
+import { ProviderError } from "../core/errors";
 
 /**
  * Abstract base class for all price providers

@@ -1,4 +1,4 @@
-import type { BaseProvider } from "../providers/base/BaseProvider";
+import type { BaseProvider } from "../providers/BaseProvider";
 import type { PriceData } from "../types";
 import { ProviderError } from "./errors";
 
