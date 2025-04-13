@@ -5,7 +5,7 @@ import type { PriceData, ProviderConfig } from "../types";
 /**
  * Provider implementation for CoinGecko API
  */
-export class CoingeckoProvider extends BaseProvider {
+export class CoinGeckoProvider extends BaseProvider {
   private readonly baseUrl: string;
 
   constructor(config: ProviderConfig) {
@@ -25,7 +25,7 @@ export class CoingeckoProvider extends BaseProvider {
       const response = await axios.get(
         `${
           this.baseUrl
-        }/simple/price?ids=${base.toLowerCase()}&vs_currencies=${quote.toLowerCase()}`,
+        }/simple/price?ids=${base.toLowerCase()}&vs_currencies=${quote.toLowerCase()}`
       );
 
       const price = response.data[base.toLowerCase()]?.[quote.toLowerCase()];

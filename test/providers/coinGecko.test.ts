@@ -1,27 +1,27 @@
-import { CoingeckoProvider } from "../../src/providers/CoinGeckoProvider";
+import { CoinGeckoProvider } from "../../src/providers/CoinGeckoProvider";
 import axios from "axios";
 
 // Mock axios
 jest.mock("axios");
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
-describe("CoingeckoProvider", () => {
-  let provider: CoingeckoProvider;
+describe("CoinGeckoProvider", () => {
+  let provider: CoinGeckoProvider;
   const mockConfig = { baseUrl: "https://api.coingecko.com/api/v3" };
 
   beforeEach(() => {
     jest.clearAllMocks();
-    provider = new CoingeckoProvider(mockConfig);
+    provider = new CoinGeckoProvider(mockConfig);
   });
 
   describe("constructor", () => {
     it("should initialize with default baseUrl when not provided", () => {
-      const defaultProvider = new CoingeckoProvider({});
-      expect(defaultProvider).toBeInstanceOf(CoingeckoProvider);
+      const defaultProvider = new CoinGeckoProvider({});
+      expect(defaultProvider).toBeInstanceOf(CoinGeckoProvider);
     });
 
     it("should initialize with provided baseUrl", () => {
-      expect(provider).toBeInstanceOf(CoingeckoProvider);
+      expect(provider).toBeInstanceOf(CoinGeckoProvider);
     });
   });
 
