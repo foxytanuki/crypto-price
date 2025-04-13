@@ -14,13 +14,12 @@ export class PriceFeed {
       throw new Error("At least one provider must be specified");
     }
     this.providers = providers;
-    this.initializeProviders();
   }
 
   /**
    * Initialize providers and set the first healthy provider as active
    */
-  private async initializeProviders(): Promise<void> {
+  async initializeProviders(): Promise<void> {
     for (const provider of this.providers) {
       try {
         const isHealthy = await provider.healthCheck();
@@ -30,7 +29,7 @@ export class PriceFeed {
       } catch (error) {
         throw new ProviderError(
           `Failed to initialize provider ${provider.getName()}: ${error}`,
-          provider.getName(),
+          provider.getName()
         );
       }
     }
