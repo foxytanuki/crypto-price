@@ -5,7 +5,7 @@ import type { PriceData, ProviderConfig } from "../types";
 /**
  * Provider implementation for CoinGecko API
  */
-export class CoingeckoProvider extends BaseProvider {
+export class CoinGeckoProvider extends BaseProvider {
   private readonly baseUrl: string;
 
   constructor(config: ProviderConfig) {
