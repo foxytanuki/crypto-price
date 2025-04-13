@@ -9,12 +9,22 @@ export class PriceFeed {
   private providers: BaseProvider[] = [];
   private activeProvider: BaseProvider | null = null;
 
-  constructor(providers: BaseProvider[]) {
+  private constructor(providers: BaseProvider[]) {
     if (providers.length === 0) {
       throw new Error("At least one provider must be specified");
     }
     this.providers = providers;
-    this.initializeProviders();
+  }
+
+  /**
+   * Factory method to create and initialize a PriceFeed instance
+   * @param providers - Array of price providers
+   * @returns Promise<PriceFeed>
+   */
+  static async create(providers: BaseProvider[]): Promise<PriceFeed> {
+    const instance = new PriceFeed(providers);
+    await instance.initializeProviders();
+    return instance;
   }
 
   /**
@@ -30,7 +40,7 @@ export class PriceFeed {
       } catch (error) {
         throw new ProviderError(
           `Failed to initialize provider ${provider.getName()}: ${error}`,
-          provider.getName(),
+          provider.getName()
         );
       }
     }

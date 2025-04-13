@@ -34,7 +34,7 @@ export class ChainlinkProvider extends BaseProvider {
     this.name = "Chainlink";
 
     if (!config.baseUrl) {
-      throw new Error("RPC URL is required for ChainlinkProvider");
+      config.baseUrl = mainnet.rpcUrls.default.http[0];
     }
 
     this.client = createPublicClient({
