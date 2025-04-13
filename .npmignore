@@ -1,0 +1,36 @@
+# Source files
+src/
+test/
+coverage/
+
+# Configuration files
+jest.config.js
+tsconfig.json
+biome.json
+
+# Development files
+.git/
+.gitignore
+.npmignore
+.editorconfig
+.eslintrc
+.prettierrc
+
+# Dependencies
+node_modules/
+pnpm-lock.yaml
+
+# Documentation
+README.md
+LICENSE
+CHANGELOG.md
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+Thumbs.db 
