@@ -30,7 +30,7 @@ export class PriceFeed {
       } catch (error) {
         throw new ProviderError(
           `Failed to initialize provider ${provider.getName()}: ${error}`,
-          provider.getName()
+          provider.getName(),
         );
       }
     }

@@ -45,7 +45,7 @@ export abstract class BaseProvider {
       `Error in ${this.name}: ${
         error instanceof Error ? error.message : String(error)
       }`,
-      this.name
+      this.name,
     );
   }
 }
