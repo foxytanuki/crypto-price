@@ -2,6 +2,7 @@
 src/
 test/
 coverage/
+example/
 
 # Configuration files
 jest.config.js
