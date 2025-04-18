@@ -5,6 +5,7 @@ import type { PriceData, ProviderConfig } from "../types";
 
 // Chainlink ETH/USD Price Feed contract address on Ethereum Mainnet
 const ETH_USD_PRICE_FEED = "0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419";
+const BTC_USD_PRICE_FEED = "0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c";
 
 // ABI for Chainlink Price Feed
 const PRICE_FEED_ABI = [
@@ -50,13 +51,16 @@ export class ChainlinkProvider extends BaseProvider {
    */
   async getPrice(symbol: string): Promise<PriceData> {
     try {
-      if (symbol !== "ETH/USD") {
-        throw new Error("ChainlinkProvider only supports ETH/USD");
+      if (symbol !== "ETH/USD" && symbol !== "BTC/USD") {
+        throw new Error("ChainlinkProvider only supports ETH/USD and BTC/USD");
       }
 
       const [roundId, answer, startedAt, updatedAt, answeredInRound] =
         await this.client.readContract({
-          address: ETH_USD_PRICE_FEED as `0x${string}`,
+          address:
+            symbol === "ETH/USD"
+              ? (ETH_USD_PRICE_FEED as `0x${string}`)
+              : (BTC_USD_PRICE_FEED as `0x${string}`),
           abi: PRICE_FEED_ABI,
           functionName: "latestRoundData",
         });

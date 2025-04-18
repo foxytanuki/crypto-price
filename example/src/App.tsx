@@ -4,6 +4,7 @@ import "./App.css";
 
 function App() {
   const [ethPrice, setEthPrice] = useState<number | null>(null);
+  const [btcPrice, setBtcPrice] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -13,6 +14,8 @@ function App() {
         const cryptoPrice = await PriceFeed.create([provider]);
         const priceData = await cryptoPrice.getPrice("ETH/USD");
         setEthPrice(priceData.price);
+        const priceDataBTC = await cryptoPrice.getPrice("BTC/USD");
+        setBtcPrice(priceDataBTC.price);
         setError(null);
       } catch (err) {
         console.error("Error fetching price:", err);
@@ -32,6 +35,11 @@ function App() {
       {error && <p style={{ color: "red" }}>Error: {error}</p>}
       {ethPrice !== null ? (
         <p>ETH Price (USD): ${ethPrice}</p>
+      ) : (
+        <p>Loading price...</p>
+      )}
+      {btcPrice !== null ? (
+        <p>BTC Price (USD): ${btcPrice}</p>
       ) : (
         <p>Loading price...</p>
       )}
