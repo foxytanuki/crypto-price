@@ -3,9 +3,15 @@ import { mainnet } from "viem/chains";
 import { BaseProvider } from "./BaseProvider";
 import type { PriceData, ProviderConfig } from "../types";
 
-// Chainlink ETH/USD Price Feed contract address on Ethereum Mainnet
-const ETH_USD_PRICE_FEED = "0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419";
-const BTC_USD_PRICE_FEED = "0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c";
+// Chainlink Price Feed contract addresses on Ethereum Mainnet
+const PRICE_FEED_ADDRESSES: Record<string, `0x${string}`> = {
+  "ETH/USD": "0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419",
+  "BTC/USD": "0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c",
+  "JPY/USD": "0xBcE206caE7f0ec07b545EddE332A47C2F75bbeb3",
+};
+
+// Chainlink uses 8 decimals for USD pairs
+const USD_DECIMALS = 8;
 
 // ABI for Chainlink Price Feed
 const PRICE_FEED_ABI = [
@@ -45,28 +51,28 @@ export class ChainlinkProvider extends BaseProvider {
   }
 
   /**
-   * Get the current price for ETH/USD
-   * @param symbol - The trading pair symbol (must be 'ETH/USD')
+   * Get the current price for a supported symbol
+   * @param symbol - The trading pair symbol (e.g., 'ETH/USD', 'BTC/USD')
    * @returns Promise<PriceData>
    */
   async getPrice(symbol: string): Promise<PriceData> {
     try {
-      if (symbol !== "ETH/USD" && symbol !== "BTC/USD") {
-        throw new Error("ChainlinkProvider only supports ETH/USD and BTC/USD");
+      const feedAddress = PRICE_FEED_ADDRESSES[symbol];
+      if (!feedAddress) {
+        throw new Error(
+          `ChainlinkProvider does not support the symbol: ${symbol}`
+        );
       }
 
       const [roundId, answer, startedAt, updatedAt, answeredInRound] =
         await this.client.readContract({
-          address:
-            symbol === "ETH/USD"
-              ? (ETH_USD_PRICE_FEED as `0x${string}`)
-              : (BTC_USD_PRICE_FEED as `0x${string}`),
+          address: feedAddress,
           abi: PRICE_FEED_ABI,
           functionName: "latestRoundData",
         });
 
-      // Chainlink uses 8 decimals for USD pairs
-      const price = Number(answer) / 10 ** 8;
+      // Adjust the price based on the decimals
+      const price = Number(answer) / 10 ** USD_DECIMALS;
 
       return {
         symbol,
@@ -90,4 +96,11 @@ export class ChainlinkProvider extends BaseProvider {
       throw new Error("ChainlinkProvider health check failed");
     }
   }
+
+  // Assume handleError is defined in BaseProvider or needs implementation
+  // protected handleError(error: unknown): PriceData {
+  //   console.error(`${this.name} provider error:`, error);
+  //   // Return a default error structure or re-throw
+  //   throw error; // Or return a specific error object/PriceData
+  // }
 }
